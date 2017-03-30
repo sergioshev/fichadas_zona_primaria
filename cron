@@ -1,0 +1,3 @@
+# Importacion de las fichas del servidor Zeus.
+0 * * * *  root python /usr/share/CGPQ/insertarFichadas.py
+30 1 * * 7 root ( python /usr/share/CGPQ/insertarFichadas.py -p ; /usr/share/CGPQ/subir_purgados )

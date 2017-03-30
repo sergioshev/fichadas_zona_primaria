@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+  <meta charset="utf-8" />
+    <title>Registro de fichadas de la zona primaria</title>
+    <style type="text/css" media="screen">
+      @import "css/style.css";
+    </style>
+    <!-- SimpleTabs -->
+    <script type="text/javascript" src="js/simpletabs_1.3.js"></script>
+    <style type="text/css" media="screen">
+      @import "css/simpletabs.css";
+    </style>
+    <script type="text/javascript" src="js/tablefilter.js"></script>
+    <script type="text/javascript" src="js/vista_personal_autorizado.js"></script>
+    <link rel="stylesheet" type="text/css" media="print" href="css/print.css"/>
+  </head>
+  <body>
+    <div id="info_login" style="margin-right: 15px" align="right">
+      <b>Conectado como: </b>#@@conectado_como@@#
+      <br>
+      <a href="cambio_clave.php" style="margin-top:10px">Cambiar clave</a>
+      <form action="salir.php">
+        <input type="submit" value="  Salir  " style="margin-top:10px">
+      </form>
+    </div>
+    <h2>Fichadas</h2>
+    <div class="simpleTabs">
+      <ul class="simpleTabsNavigation">
+        <li><a href="#">Sin registro de salida</a></li>
+        <li><a href="#">Registro entradas con salidas</a></li>
+        <li><a href="#">Historico por dia</a></li>
+        <li><a href="#">Personal autorizado</a></li>
+      </ul>
+      <div class="simpleTabsContent" id="d_fichada_sin_salida">
+        <p>Filtros</p>
+        <table width="100%" id="t_fichada_sin_salida">
+          <th>Identificador</th>
+          <th>Fecha de entrada</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>DNI</th>
+          <th>Puesto</th>
+          #@@fichada_sin_salida@@#
+        </table>
+      </div>
+      <div class="simpleTabsContent" id="d_fichada_con_salida">
+        <p>Filtros
+        <table width="100%" id="t_fichada_con_salida">
+          <th>Identificador</th>
+          <th>Fecha de entrada</th>
+          <th>Fecha de salida</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>DNI</th>
+          <th>Puesto entrada</th>
+          <th>Puesto salida</th>
+          #@@fichada_con_salida@@#
+        </table>
+      </div>
+      <div class="simpleTabsContent">
+        <p>Ingrese las fechas en formato año-mes-dia. Ejemplo: 2013-01-15.</p>
+        <form action="procesar_fechas.php" target="_blank">
+          <table style="margin: 15px">
+            <tr>
+              <td align="left">
+                <b>Desde:</b>
+              </td>
+              <td>
+                <input type="text" name="fdesde">
+              </td>
+            </tr>
+            <tr>
+              <td align="left">
+                <b>Hasta:</b>
+              </td>
+              <td>
+                <input type="text" name="fhasta">
+              </td>
+            </tr>
+          </table>
+          <input type="submit" value=" Mostrar ">
+        </form>
+      </div>
+      <div class="simpleTabsContent">
+        <form action="procesar_personal.php" method="post" onkeypress="return event.keyCode != 13;" onsubmit="return confirm('Confirma?');">  
+           <div style="position: fixed">
+             <h1>Personal autorizado.</h1>
+             <table style="margin: 15px;">
+               <tr>
+                 <td align="left">
+                   <b>Nombre:</b>
+                 </td>
+                 <td>
+                   <input id="vpa_i_name" type="text" name="name" align="left">
+                 </td>
+               </tr>
+               <tr>
+                 <td align="left">
+                   <b>Apellido:</b>
+                 </td>
+                 <td>
+                   <input id="vpa_i_surname" type="text" name="surname" align="left">
+                 </td>
+               </tr>
+               <tr>
+                 <td align="left">
+                   <b>DNI:</b>
+                 </td>
+                 <td>
+                   <input id="vpa_i_dni" type="text" name="dni" align="left">
+                 </td>
+               </tr>
+               <tr>
+                 <td>
+                 </td>
+                 <td>
+                   <input id="vpa_i_old_dni" type="text" name="old_dni" align="left" readonly="readonly">
+                 </td>
+               <tr>
+             </table>
+             <div id="abm-buttons">
+               <input type="submit" value=" Crear/Actualizar " name="send_person_data">
+               <input type="button" onclick="clean_stuf_data()" style="margin-left: 10px" value="  Limpiar  ">
+               <input type="submit" value=" Eliminar " style="margin-left: 40px" name="delete_person_data">
+             </div>
+             <div style="margin-top:15px; font-weight: bold;">
+             #@@mensaje_operacion@@#
+             </div>
+           </div>
+           <div style="margin-left: 280px">
+             <table width="80%" id="t_personal_autorizado">
+               <th>Nombre</th>
+               <th>Apellido</th>
+               <th>DNI</th>
+               #@@personal_autorizado@@#
+             </table>
+           </div>
+        </form>
+      </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+	setFilterGrid("t_fichada_sin_salida",0);
+	setFilterGrid("t_fichada_con_salida",0);
+	setFilterGrid("t_personal_autorizado",0);
+    </script> 
+  </body>
+</html>

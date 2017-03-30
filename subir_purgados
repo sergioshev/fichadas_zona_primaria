@@ -1,0 +1,88 @@
+#!/bin/bash
+
+pro_root="/usr/share/CGPQ"
+purged_prefix="purgados"
+
+smb_server="zeus"
+smb_res="tq1"
+smb_folder="fichadas_zp"
+smb_user="sistemas"
+smb_pass="sistemas"
+
+function generate_smb_statements
+{
+  mcwd=$(pwd)
+  cd "$pro_root"
+cat <<FFAA
+cd "$smb_folder";
+FFAA
+  ls "$purged_prefix"* &> /dev/null && {
+    for f in "$purged_prefix"* ; do
+cat <<FFAA
+put "$f";
+FFAA
+    done
+  }
+  cd "$mcwd"
+}
+
+function get_uploaded_list
+{
+  mcwd=$(pwd)
+  cd "$pro_root"
+  ls "$purged_prefix"* &> /dev/null && {
+    ls -1 "$purged_prefix"*
+  }
+  cd "$mcwd"
+}
+
+function upload_files
+{
+  smb_orders=$(generate_smb_statements)
+  echo "Enviando ordenes al servidor samba"
+  echo "<ORDENES>"
+  echo $smb_orders
+  echo "<FIN ORDENES>"
+  mcwd=$(pwd)
+  cd "$pro_root"
+  smbclient //$smb_server/$smb_res "$smb_pass" -U $smb_user -c "$smb_orders"
+  cd "$mcwd"
+}
+
+function check_uploaded_file
+{
+  name=$1
+  orders=$(
+cat <<FFAA
+cd "$smb_folder";
+ls "$name"
+FFAA
+)
+  echo "Enviando ordenes al servidor samba"
+  echo "<ORDENES>"
+  echo $orders
+  echo "<FIN ORDENES>"
+  smbclient //$smb_server/$smb_res "$smb_pass" -U $smb_user -c "$orders"
+  return $?
+}
+
+function check_uploaded
+{
+  files=$(get_uploaded_list)
+  echo "Chequando los archivos subidos"
+  for f in $files ; do
+    echo Comprobando $f
+    check_uploaded_file "$f"
+    res=$?
+    [ $res -eq 0 ] && 
+      { echo Estado OK
+        echo rm -f "$pro_root/$f"
+        rm -f "$pro_root/$f" 
+      } || echo Estado ERROR
+    echo
+  done
+}
+
+upload_files
+echo 
+check_uploaded

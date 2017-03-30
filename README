@@ -1,0 +1,31 @@
+*notas para python
+
+1) instalar el modulo para conectarse al postgres
+  aptitude install python-pygresql
+
+2) instalar la libreria zkemapi
+  make install desdel el directorio zkemapi descargado desde
+  el cvs de terminalquequen
+
+3) samba, el cliente smbclient tiene que poder conctarse en 
+  forma no interactiva al servidor y tiene que existir la ruta
+  fichadas_zp que es usada por subur_fichadas. Si se quiere 
+  cambiar la ruta revisar el script subir_fichadas para evitar
+  errores durante el upload
+
+*nota sobre la configuracion de la base de datos y fichero
+
+  Aca se usan varios lenguajes para implementar la descarga de los datos
+  tener muy en cuenta de mantener los datos sincronizados.
+  Tanto la configuracion de acceso como los nombres de las zonas con los ficheros.
+  Toda esa informacion tiene que ser consistente.
+  config.php, config.py, metadatos.sql tienen que definir los mismos parametros.
+
+  IMPORTANTE: verificar que la ruta (/usr/share/CGTQ) que se usa en el Makefile
+  sea la misma que es usada en subir_purgados, insertarFichadas.py.
+
+  subir_purgados - tiene que saber a donde ir a buscar los *.csv que se subiran
+
+  isertarFichadas.py - tiene que saber donde grabar los *.csv cuando es ejecutado
+    en modo purgar
+

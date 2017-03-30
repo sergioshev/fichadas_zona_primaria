@@ -1,0 +1,33 @@
+<html lang="en" class="no-js">
+  <head>
+  <meta charset="utf-8" />
+    <title>Registro de fichadas</title>
+    <style type="text/css" media="screen">
+      @import "css/style.css";
+    </style>
+    <!-- SimpleTabs -->
+    <script type="text/javascript" src="js/simpletabs_1.3.js"></script>
+    <style type="text/css" media="screen">
+      @import "css/simpletabs.css";
+    </style>
+    <script type="text/javascript" src="js/tablefilter.js"></script>
+  </head>
+  <body>
+    <div id="d_fichada_entre_fechas">
+      <p>Filtros
+      <table width="100%" id="t_fichada_entre_fechas">
+        <th>Identificador</th>
+        <th>Fecha de entrada</th>
+        <th>Fecha de salida</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>DNI</th>
+        <th>Puesto</th>
+        #@@fichada_entre_fechas@@#
+      </table>
+      <script language="javascript" type="text/javascript">
+        setFilterGrid("t_fichada_entre_fechas",0);
+      </script> 
+    </div>
+  </body>
+</html>

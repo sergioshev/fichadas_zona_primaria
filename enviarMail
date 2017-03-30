@@ -1,0 +1,23 @@
+#!/bin/bash
+
+filename=$(mktemp)
+
+su -c "echo \"select * from consorcio.mail_notificacion;\" | psql -t fichada" postgres > $filename
+
+lines=$(cat $filename | wc -l)
+
+if [ $lines -gt 1 ] ; then
+{
+cat <<FFAA
+  Se han realizado operaciones sobre la tabla personal autorizado. Se resumen en la tabla de abajo.
+
+FFAA
+cat $filename
+} | mailx -s "Cambios en el personal autorizado del sistema de fichadas" sistemas@terminalquequen.com.ar
+  if [ $? -eq 0 ] ; then
+  # se envio bien el correo
+    su -c "echo \"delete from consorcio.mail_notificacion;\" | psql -t fichada" postgres > /dev/null
+  fi
+fi
+
+rm -f $filename

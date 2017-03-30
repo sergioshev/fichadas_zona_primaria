@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+  <meta charset="utf-8" />
+    <style type="text/css" media="screen">
+      @import "css/style.css";
+    </style>
+  </head>
+  <body>
+    <div id="login" align="center">
+      <h2 style="color: #FF0000">Cambio de clave!</h2>
+      <form action="cambiar_clave.php" method="post" onsubmit="return confirm('Su sesion se cerrara. Confirma ?');">
+        <table>
+        <tr>
+          <td align="left">
+            <b>Clave nueva</b> 
+          </td>
+          <td align="left">
+            <input type="password" name="new_passwd">
+          </td>
+        </tr>
+        <tr>
+          <td align="left">
+            <b>Confirmacion clave nueva:</b>
+          </td>
+          <td>
+            <input type="password" name="rep_new_passwd">
+          </td>
+        </tr>
+        </table>
+        <input type="submit" value=" Cambiar ">
+      </form>
+    </div>
+  </body>
+</html>
